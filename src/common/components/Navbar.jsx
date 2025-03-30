@@ -59,7 +59,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link to="/requests" className="justify-between">
-                  Requests
+                  Connection Requests
                 </Link>
               </li>
               <li>

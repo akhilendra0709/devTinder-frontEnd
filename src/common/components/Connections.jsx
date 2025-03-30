@@ -36,21 +36,23 @@ const Connections = () => {
         {connections.map((conn) => (
           <div
             key={conn._id}
-            className="card bg-gradient-to-r from-base-200 to-base-300 shadow-lg p-6 rounded-2xl w-full flex items-center gap-6 hover:shadow-purple-500 transition-all duration-300"
+            className="card bg-gradient-to-r from-base-200 to-base-300 shadow-lg p-6 rounded-2xl w-full flex flex-col sm:flex-row sm:items-center gap-6 hover:shadow-purple-500 transition-all duration-300 transform hover:scale-105"
           >
-            <figure className="w-28 h-28 rounded-full overflow-hidden border-4 border-primary shadow-xl flex-shrink-0">
+            <figure className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-primary shadow-lg flex-shrink-0 mx-auto sm:mx-0">
               <img
                 src={conn.photoUrl}
                 alt={conn.firstName}
                 className="w-full h-full object-cover"
               />
             </figure>
-            <div className="flex-1 text-center">
-              <h3 className="text-2xl font-bold text-secondary capitalize">
+            <div className="flex-1 text-center sm:text-left">
+              <h3 className="text-xl sm:text-2xl font-bold text-secondary capitalize">
                 {conn.firstName} {conn.lastName}
               </h3>
-              <p className="text-md text-gray-700 italic mt-2">{conn.about}</p>
-              <p className="text-md text-gray-500 mt-2">
+              <p className="text-sm sm:text-md text-gray-700 italic mt-2">
+                {conn.about}
+              </p>
+              <p className="text-sm sm:text-md text-gray-500 mt-2">
                 Age: <span className="font-semibold">{conn.age}</span>
               </p>
             </div>
