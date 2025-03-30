@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import axios from "axios";
-import {useDispatch} from "react-redux";
-import {addUser} from "../../utils/userSlice.js";
-import {useNavigate} from "react-router";
-import {BASE_URL} from "../../utils/constants";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../utils/userSlice.js";
+import { useNavigate } from "react-router";
+import { BASE_URL } from "../../utils/constants";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [emailId, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const handleLogin = async () => {
     try {
@@ -23,11 +24,12 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      console.log(res?.data);
-      dispatch(addUser(res?.data));
+      console.log(res?.data?.data);
+      dispatch(addUser(res?.data?.data));
       navigate("/feed");
     } catch (error) {
       console.log(error);
+      setError(error?.response?.data?.message || error?.response?.data);
     }
   };
   return (
@@ -71,8 +73,8 @@ const Login = () => {
               </button>
             </div>
           </label>
-
-          <button className="btn btn-primary w-full mt-5" onClick={handleLogin}>
+          <p className="text-red-500 text-center">{error}</p>
+          <button className="btn btn-primary w-full mt-2" onClick={handleLogin}>
             Login
           </button>
 

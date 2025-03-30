@@ -4,12 +4,12 @@ import Cookies from "js-cookie";
 const BASE_URL = `http://localhost:3000`;
 
 export const logout = () => {
-  Cookies.remove("access_token");
+  Cookies.remove("token");
   window.location.href = "/";
 };
 
 export const getAuthToken = () => {
-  return Cookies.get("access_token");
+  return Cookies.get("token");
 };
 
 const handleAuthError = (error) => {
