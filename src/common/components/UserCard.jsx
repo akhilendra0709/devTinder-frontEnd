@@ -1,44 +1,65 @@
-const UserInfoCard = ({ data }) => {
+import axios from "axios";
+import { BASE_URL } from "../../utils/constants";
+import { useDispatch } from "react-redux";
+import { removeFeed } from "../../utils/feedSlice";
+
+const UserCard = ({ data }) => {
+  const dispatch = useDispatch();
+  if (!data) return null;
+
+  const { _id, firstName, lastName, age, gender, about, photoUrl } = data;
+  const capitalize = (str) => (str ? str[0].toUpperCase() + str.slice(1) : "");
+
+  const handleSendRequest = async (status, _id) => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/request/send/" + status + "/" + _id,
+        {},
+        { withCredentials: true }
+      );
+      dispatch(removeFeed(_id));
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {data?.data?.map((user) => {
-        const { firstName, lastName, age, gender, about, photoUrl } = user;
-        const capitalize = (str) =>
-          str ? str[0].toUpperCase() + str.slice(1) : "";
-        return (
-          <div
-            key={user._id}
-            className="bg-purple-700 text-white shadow-lg rounded-2xl p-5 w-full max-w-sm"
-          >
-            <div className="flex flex-col items-center">
-              <img
-                src={photoUrl || "/default-avatar.png"}
-                alt={firstName}
-                className="w-24 h-24 rounded-full border-2 border-gray-300"
-              />
-              <h2 className="mt-4 text-lg font-semibold">
-                {capitalize(firstName)} {capitalize(lastName)}
-              </h2>
-              <p className="text-sm text-gray-200">
-                {capitalize(gender)}, {age} years old
-              </p>
-              <p className="text-sm text-gray-300 mt-2">
-                {about || "No information provided"}
-              </p>
-              <div className="mt-4 flex gap-3">
-                <button className="btn btn-primary rounded-lg">
-                  Ignore
-                </button>
-                <button className="btn btn-secondary rounded-lg">
-                  Connect
-                </button>
-              </div>
-            </div>
+    <div className="flex justify-center items-center min-h-[80vh] px-4">
+      <div className="bg-gradient-to-r from-purple-600 to-indigo-700 text-white shadow-2xl rounded-3xl p-10 w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl transform hover:scale-105 transition-all duration-300">
+        <div className="flex flex-col items-center text-center">
+          <img
+            src={photoUrl || "/default-avatar.png"}
+            alt={firstName}
+            className="w-40 h-40 rounded-full border-4 border-secondary shadow-md"
+          />
+          <h2 className="mt-6 text-3xl font-bold">
+            {capitalize(firstName)} {capitalize(lastName)}
+          </h2>
+          <p className="text-lg text-gray-200 mt-2">
+            {capitalize(gender)}, {age} years old
+          </p>
+          <p className="text-lg text-gray-300 mt-4 px-6">
+            {about || "No information provided"}
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-6">
+            <button
+              onClick={() => handleSendRequest("ignored", _id)}
+              className="px-8 py-3 bg-primary text-white rounded-full shadow-md hover:bg-gray-600 transition-all transform hover:scale-110"
+            >
+              Ignore
+            </button>
+            <button
+              onClick={() => handleSendRequest("interested", _id)}
+              className="px-8 py-3 bg-secondary text-white rounded-full shadow-md hover:bg-secondary-dark transition-all transform hover:scale-110"
+            >
+              Connect
+            </button>
           </div>
-        );
-      })}
+        </div>
+      </div>
     </div>
   );
 };
 
-export default UserInfoCard;
+export default UserCard;
