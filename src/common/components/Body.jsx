@@ -6,6 +6,7 @@ import {BASE_URL} from "../../utils/constants.js";
 import {useDispatch, useSelector} from "react-redux";
 import {addUser} from "../../utils/userSlice.js";
 import {useEffect} from "react";
+import { ToastContainer } from "react-toastify";
 
 const Body = () => {
     const dispatch = useDispatch()
@@ -32,6 +33,7 @@ const Body = () => {
         <>
             <Navbar/>
             <Outlet/>
+            <ToastContainer />
             <Footer/>
         </>
     );
