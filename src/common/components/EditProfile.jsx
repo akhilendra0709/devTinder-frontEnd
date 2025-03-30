@@ -4,6 +4,7 @@ import axios from "axios";
 import { BASE_URL } from "../../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../utils/userSlice";
+import { Slide, toast } from "react-toastify";
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
@@ -42,6 +43,16 @@ const EditProfile = ({ user }) => {
       );
       console.log(res?.data);
       dispatch(addUser(res?.data?.data));
+      toast.success("Profile Updated Successfully", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: true,
+        theme: "light",
+        transition: Slide,
+      });
     } catch (error) {
       console.log(error);
     }

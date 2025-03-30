@@ -26,14 +26,14 @@ const UserCard = ({ data }) => {
 
   return (
     <div className="flex justify-center items-center min-h-[80vh] px-4">
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-700 text-white shadow-2xl rounded-3xl p-10 w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl transform hover:scale-105 transition-all duration-300">
+      <div className="bg-gradient-to-r from-purple-600 to-indigo-700 text-white shadow-2xl rounded-3xl p-10 w-full max-w-lg sm:max-w-lg md:max-w-lg lg:max-w-lg transform hover:scale-105 transition-all duration-300">
         <div className="flex flex-col items-center text-center">
           <img
             src={photoUrl || "/default-avatar.png"}
             alt={firstName}
             className="w-40 h-40 rounded-full border-4 border-secondary shadow-md"
           />
-          <h2 className="mt-6 text-3xl font-bold">
+          <h2 className="mt-6 text-3xl font-bold break-words max-w-full px-4">
             {capitalize(firstName)} {capitalize(lastName)}
           </h2>
           <p className="text-lg text-gray-200 mt-2">

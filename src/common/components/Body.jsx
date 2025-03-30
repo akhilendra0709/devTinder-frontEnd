@@ -1,4 +1,4 @@
-import {Outlet, useNavigate} from "react-router";
+import {Outlet, useLocation, useNavigate} from "react-router";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import axios from "axios";
@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 const Body = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location=useLocation()
     const userData = useSelector(state => state.user)
     const fetchUser = async () => {
         if (userData) return
@@ -20,8 +21,8 @@ const Body = () => {
             })
             dispatch(addUser(user?.data?.data))
         } catch (error) {
-            if (error?.status === 401) {
-                navigate("/login")
+            if (error?.response?.status === 401 && location.pathname !== "/signup") {
+                navigate("/login");
             }
             console.log(error)
         }
