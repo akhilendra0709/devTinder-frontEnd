@@ -36,7 +36,7 @@ const Login = () => {
         transition: Slide,
       });
       dispatch(addUser(res?.data?.data));
-      navigate("/");
+      navigate("/feed");
     } catch (error) {
       setError(error.response?.data?.message || "Login failed");
       toast.error(error.response?.data?.message || "Login failed", {
