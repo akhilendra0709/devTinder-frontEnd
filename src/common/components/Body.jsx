@@ -22,7 +22,7 @@ const Body = () => {
             dispatch(addUser(user?.data?.data))
         } catch (error) {
             if (error?.response?.status === 401 && location.pathname !== "/signup") {
-                navigate("/login");
+                navigate("/");
             }
             console.log(error)
         }
